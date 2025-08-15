@@ -33,22 +33,29 @@ const TechStack = () => {
           {technologies.map((tech, index) => (
             <div
               key={index}
-              className="group relative bg-gradient-to-br from-gray-800/50 to-gray-900/80 border border-gray-700/50 rounded-xl p-4 hover:border-gray-600/50 transition-all duration-300 hover:transform hover:scale-110 hover:rotate-1"
+              className="group relative bg-gray-800/40 backdrop-blur-sm border border-gray-700/30 rounded-xl p-6 hover:bg-gray-700/40 transition-all duration-300 hover:scale-105 cursor-pointer"
+              style={{
+                transformStyle: 'preserve-3d',
+                transition: 'transform 2s ease'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'scale(1.05) rotateX(360deg)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'scale(1) rotateX(0deg)';
+              }}
             >
               <div className="text-center">
-                <div className="text-2xl mb-2 transform group-hover:scale-125 transition-transform duration-300">
+                <div className="text-2xl mb-3 transition-transform duration-300">
                   {tech.icon}
                 </div>
-                <h3 className="text-sm font-medium text-white group-hover:text-gray-300 transition-colors duration-300">
+                <h3 className="text-sm font-medium text-gray-300 group-hover:text-white transition-colors duration-300">
                   {tech.name}
                 </h3>
               </div>
               
-              {/* Glow effect on hover */}
-              <div className={`absolute inset-0 bg-gradient-to-r ${tech.color} opacity-0 group-hover:opacity-20 rounded-xl transition-opacity duration-300`}></div>
-              
-              {/* Subtle shine effect */}
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+              {/* Subtle glow on hover */}
+              <div className={`absolute inset-0 bg-gradient-to-r ${tech.color} opacity-0 group-hover:opacity-10 rounded-xl transition-opacity duration-300`}></div>
             </div>
           ))}
         </div>

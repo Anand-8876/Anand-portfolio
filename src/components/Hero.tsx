@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import WavingAvatar from './WavingAvatar';
+import avatar from './avatar.png';
 
 const Hero = () => {
   const [currentRole, setCurrentRole] = useState(0);
@@ -15,7 +15,7 @@ const Hero = () => {
   ];
 
   useEffect(() => {
-    let timeout: NodeJS.Timeout;
+    let timeout;
     const currentRoleText = roles[currentRole];
 
     if (isTyping) {
@@ -43,8 +43,8 @@ const Hero = () => {
   }, [displayText, isTyping, currentRole, roles]);
 
   return (
-    <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-gray-900/50 to-black/80"></div>
+    <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-black via-gray-900 to-black">
+      <div className="absolute inset-0 bg-gradient-to-br from-black/50 to-gray-900/80"></div>
       
       {/* Animated background elements */}
       <div className="absolute inset-0">
@@ -52,10 +52,23 @@ const Hero = () => {
         <div className="absolute top-40 right-32 w-1 h-1 bg-gray-400 rounded-full animate-ping opacity-30"></div>
         <div className="absolute bottom-32 left-16 w-1.5 h-1.5 bg-white rounded-full animate-pulse opacity-25"></div>
         <div className="absolute bottom-20 right-20 w-1 h-1 bg-gray-300 rounded-full animate-ping opacity-20"></div>
+        <div className="absolute top-1/4 left-1/4 w-1 h-1 bg-white rounded-full animate-pulse opacity-40"></div>
+        <div className="absolute top-3/4 right-1/4 w-1.5 h-1.5 bg-gray-300 rounded-full animate-ping opacity-30"></div>
       </div>
 
-      <div className="relative z-10 text-center max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 text-center max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="space-y-8">
+          {/* Avatar positioned in the center above the name */}
+          <div className="flex justify-center mb-8">
+            <div className="transform hover:scale-110 transition-all duration-500 hover:rotate-3">
+              <img 
+                src={avatar} 
+                alt="Anand's Avatar" 
+                className="w-32 h-32 sm:w-40 sm:h-40 rounded-full shadow-2xl border-4 border-white/20 backdrop-blur-sm object-cover"
+              />
+            </div>
+          </div>
+
           <div className="relative">
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight">
               <span className="bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
@@ -66,11 +79,6 @@ const Hero = () => {
                 Anand! 👋
               </span>
             </h1>
-            
-            {/* Waving Avatar positioned at top-right */}
-            <div className="absolute -top-4 -right-4 sm:-top-8 sm:-right-8">
-              <WavingAvatar />
-            </div>
           </div>
 
           <div className="h-20 flex items-center justify-center">
@@ -90,7 +98,7 @@ const Hero = () => {
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mt-12">
             <button 
               onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-              className="px-8 py-4 bg-gradient-to-r from-white to-gray-300 text-black font-semibold rounded-lg hover:from-gray-100 hover:to-white transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
+              className="px-8 py-4 bg-gradient-to-r from-white to-gray-200 text-black font-semibold rounded-lg hover:from-gray-100 hover:to-white transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
             >
               Get In Touch
             </button>
