@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import avatar from './avatar.png';
+import avatar from './waving.mp4';
 
 const Hero = () => {
   const [currentRole, setCurrentRole] = useState(0);
@@ -61,10 +61,19 @@ const Hero = () => {
           {/* Avatar positioned in the center above the name */}
           <div className="flex justify-center mb-8">
             <div className="transform hover:scale-110 transition-all duration-500 hover:rotate-3">
-              <img 
-                src={avatar} 
-                alt="Anand's Avatar" 
+              <video
+                src={avatar}
+                autoPlay
+                loop
+                muted
+                playsInline
                 className="w-32 h-32 sm:w-40 sm:h-40 rounded-full shadow-2xl border-4 border-white/20 backdrop-blur-sm object-cover"
+                style={{ objectFit: 'cover' }}
+                onError={(e) => {
+                  console.error('Video failed to load:', e);
+                  // Fallback: hide the video element if it fails to load
+                  e.target.style.display = 'none';
+                }}
               />
             </div>
           </div>
@@ -76,7 +85,7 @@ const Hero = () => {
               </span>
               <br />
               <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
-                Anand! 👋
+                Anand!
               </span>
             </h1>
           </div>

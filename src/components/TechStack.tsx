@@ -1,19 +1,52 @@
 import React from 'react';
+import { 
+  DiJavascript, 
+  DiReact, 
+  DiNodejsSmall, 
+  DiPython, 
+  DiGit, 
+  DiDocker, 
+  DiAws,
+  DiCss3,
+  DiMysql 
+} from 'react-icons/di';
+import { 
+  SiTypescript, 
+  SiExpress, 
+  SiMongodb, 
+  SiOpencv, 
+  SiTensorflow, 
+  SiGit, 
+  SiDocker, 
+  SiAmazonaws,
+  SiNextdotjs,
+  SiTailwindcss,
+  SiSwagger,
+  SiSocketdotio,
+  SiGithub
+} from 'react-icons/si';
 
 const TechStack = () => {
   const technologies = [
-    { name: 'JavaScript', color: 'from-yellow-400 to-yellow-600', icon: '🟨' },
-    { name: 'TypeScript', color: 'from-blue-400 to-blue-600', icon: '🔷' },
-    { name: 'React', color: 'from-cyan-400 to-cyan-600', icon: '⚛️' },
-    { name: 'Node.js', color: 'from-green-400 to-green-600', icon: '🟢' },
-    { name: 'Express.js', color: 'from-gray-400 to-gray-600', icon: '🚂' },
-    { name: 'MongoDB', color: 'from-green-400 to-green-700', icon: '🍃' },
-    { name: 'Python', color: 'from-blue-400 to-yellow-400', icon: '🐍' },
-    { name: 'OpenCV', color: 'from-red-400 to-red-600', icon: '👁️' },
-    { name: 'TensorFlow', color: 'from-orange-400 to-orange-600', icon: '🧠' },
-    { name: 'Git', color: 'from-orange-500 to-red-500', icon: '📝' },
-    { name: 'Docker', color: 'from-blue-500 to-cyan-500', icon: '🐳' },
-    { name: 'AWS', color: 'from-yellow-500 to-orange-500', icon: '☁️' },
+    { name: 'JavaScript', color: 'from-yellow-400 to-yellow-600', icon: DiJavascript },
+    { name: 'TypeScript', color: 'from-blue-400 to-blue-600', icon: SiTypescript },
+    { name: 'React', color: 'from-cyan-400 to-cyan-600', icon: DiReact },
+    { name: 'Next.js', color: 'from-white to-gray-300', icon: SiNextdotjs },
+    { name: 'Node.js', color: 'from-green-400 to-green-600', icon: DiNodejsSmall },
+    { name: 'Express.js', color: 'from-gray-400 to-gray-600', icon: SiExpress },
+    { name: 'MongoDB', color: 'from-green-400 to-green-700', icon: SiMongodb },
+    { name: 'MySQL', color: 'from-blue-500 to-orange-500', icon: DiMysql },
+    { name: 'Python', color: 'from-blue-400 to-yellow-400', icon: DiPython },
+    { name: 'OpenCV', color: 'from-red-400 to-red-600', icon: SiOpencv },
+    { name: 'TensorFlow', color: 'from-orange-400 to-orange-600', icon: SiTensorflow },
+    { name: 'Tailwind CSS', color: 'from-cyan-400 to-blue-500', icon: SiTailwindcss },
+    { name: 'CSS3', color: 'from-blue-400 to-blue-600', icon: DiCss3 },
+    { name: 'Socket.io', color: 'from-black to-gray-700', icon: SiSocketdotio },
+    { name: 'Swagger', color: 'from-green-400 to-green-600', icon: SiSwagger },
+    { name: 'Git', color: 'from-orange-500 to-red-500', icon: DiGit },
+    { name: 'GitHub', color: 'from-gray-700 to-black', icon: SiGithub },
+    
+    { name: 'AWS', color: 'from-yellow-500 to-orange-500', icon: DiAws },
   ];
 
   return (
@@ -46,8 +79,8 @@ const TechStack = () => {
               }}
             >
               <div className="text-center">
-                <div className="text-2xl mb-3 transition-transform duration-300">
-                  {tech.icon}
+                <div className="text-4xl mb-3 transition-transform duration-300">
+                  <tech.icon />
                 </div>
                 <h3 className="text-sm font-medium text-gray-300 group-hover:text-white transition-colors duration-300">
                   {tech.name}
@@ -64,7 +97,7 @@ const TechStack = () => {
           <p className="text-gray-400 mb-6">Always exploring new technologies and staying updated with industry trends</p>
           <div className="inline-flex items-center space-x-2 text-white">
             <span className="animate-pulse">🚀</span>
-            <span className="text-sm">Currently learning: Next.js, Prisma, and Advanced Machine Learning</span>
+            <span className="text-sm">Currently learning: Advanced Machine Learning, GraphQL, and Microservices Architecture</span>
             <span className="animate-pulse">🚀</span>
           </div>
         </div>

@@ -60,12 +60,6 @@ const About = () => {
           <div className={`w-24 h-1 bg-gradient-to-r from-white to-gray-400 mx-auto mb-8 transform transition-all duration-1000 delay-300 ${
             isVisible ? 'scale-x-100 opacity-100' : 'scale-x-0 opacity-0'
           }`}></div>
-          <div className={`w-16 h-16 mx-auto mb-8 relative ${
-            isVisible ? 'animate-spin-slow' : ''
-          }`}>
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full blur-md opacity-75 animate-pulse"></div>
-            <div className="absolute inset-2 bg-black rounded-full"></div>
-          </div>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -73,25 +67,22 @@ const About = () => {
             isVisible ? 'translate-x-0 opacity-100' : '-translate-x-10 opacity-0'
           }`}>
             <div className="relative">
-              <p className="text-lg text-gray-300 leading-relaxed relative z-10 p-6 rounded-xl bg-gradient-to-r from-gray-900/50 to-gray-800/50 border border-gray-700/30 backdrop-blur-sm">
+              <p className="text-lg text-white leading-relaxed relative z-10 p-6 rounded-xl bg-black border border-gray-700/30">
                 I am a final year bachelor's in technology student specialized in computer science and I am currently working as a software engineer.
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-xl blur-xl -z-10"></div>
               </p>
             </div>
             
             <div className="relative">
-              <p className="text-lg text-gray-300 leading-relaxed relative z-10 p-6 rounded-xl bg-gradient-to-r from-gray-800/50 to-gray-900/50 border border-gray-700/30 backdrop-blur-sm">
+              <p className="text-lg text-white leading-relaxed relative z-10 p-6 rounded-xl bg-black border border-gray-700/30">
                 Specializing in the MERN stack, I build scalable web applications from concept to deployment. 
                 My expertise extends to data structures & algorithms, ensuring efficient and optimized solutions.
-                <div className="absolute inset-0 bg-gradient-to-r from-green-500/10 to-blue-500/10 rounded-xl blur-xl -z-10"></div>
               </p>
             </div>
             
             <div className="relative">
-              <p className="text-lg text-gray-300 leading-relaxed relative z-10 p-6 rounded-xl bg-gradient-to-r from-gray-900/50 to-gray-800/50 border border-gray-700/30 backdrop-blur-sm">
+              <p className="text-lg text-white leading-relaxed relative z-10 p-6 rounded-xl bg-black border border-gray-700/30">
                 Currently exploring the fascinating world of AI and machine learning, with particular interest in 
                 computer vision using CNNs and OpenCV. I believe in the power of technology to solve real-world problems.
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-xl blur-xl -z-10"></div>
               </p>
             </div>
           </div>
@@ -159,7 +150,7 @@ const About = () => {
         </div>
       </div>
       
-      <style tsx>{`
+      <style jsx>{`
         @keyframes spin-slow {
           from {
             transform: rotate(0deg);
