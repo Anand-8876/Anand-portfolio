@@ -22,7 +22,7 @@ const Projects = () => {
       icon: Brain,
       color: 'from-purple-500 to-pink-500',
       //demoUrl: '#',
-      githubUrl: 'https://github.com/Anand-8876/Realtime-Detection',
+      githubUrl: 'https://github.com/Anand-8876/image-classification-CNN',
       features: ['Custom CNN Architecture', 'Data Augmentation', 'Transfer Learning', '95%+ Accuracy']
     },
     {
