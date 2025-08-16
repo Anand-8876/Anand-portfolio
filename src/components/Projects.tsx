@@ -1,59 +1,59 @@
 import React, { useState } from 'react';
-import { ExternalLink, Github, Play, Code, Database, Smartphone, Globe, Brain } from 'lucide-react';
+import { ExternalLink, Github, Play, Code, Database, Smartphone, Globe, Brain, Eye, Camera, Users, Briefcase } from 'lucide-react';
 
 const Projects = () => {
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
 
   const projects = [
     {
-      title: 'E-Commerce Platform',
-      description: 'Full-stack MERN application with user authentication, payment integration, and admin dashboard. Features real-time inventory management and order tracking.',
-      tech: ['React', 'Node.js', 'MongoDB', 'Express', 'Stripe'],
-      icon: Globe,
+      title: 'Drowsiness Detection System',
+      description: 'AI-powered real-time drowsiness detection system using computer vision and machine learning. Monitors driver alertness through eye tracking and facial recognition to prevent accidents.',
+      tech: ['Python', 'OpenCV', 'TensorFlow', 'Keras', 'NumPy', 'Flask'],
+      icon: Eye,
       color: 'from-blue-500 to-cyan-500',
-      demoUrl: '#',
-      githubUrl: '#',
-      features: ['Payment Integration', 'Real-time Updates', 'Admin Dashboard', 'Responsive Design']
+      // //demoUrl: '#',
+      githubUrl: 'https://github.com/Anand-8876/Drowsiness-detection-system',
+      features: ['Real-time Eye Tracking', 'Facial Recognition', 'Alert System', 'High Accuracy Detection']
     },
     {
-      title: 'AI Image Classifier',
-      description: 'Computer vision application using CNNs and OpenCV for real-time image classification. Trained on custom datasets with 95% accuracy.',
-      tech: ['Python', 'TensorFlow', 'OpenCV', 'Flask', 'React'],
+      title: 'Image Identification using CNN',
+      description: 'Advanced computer vision application using Convolutional Neural Networks for multi-class image classification. Trained on custom datasets with data augmentation techniques achieving high accuracy.',
+      tech: ['Python', 'TensorFlow', 'Keras', 'OpenCV', 'NumPy', 'Matplotlib'],
       icon: Brain,
       color: 'from-purple-500 to-pink-500',
-      demoUrl: '#',
-      githubUrl: '#',
-      features: ['Real-time Processing', 'Custom CNN Model', 'Web Interface', 'High Accuracy']
+      //demoUrl: '#',
+      githubUrl: 'https://github.com/Anand-8876/Realtime-Detection',
+      features: ['Custom CNN Architecture', 'Data Augmentation', 'Transfer Learning', '95%+ Accuracy']
     },
     {
-      title: 'Task Management App',
-      description: 'Collaborative project management tool with drag-and-drop functionality, team collaboration features, and progress tracking.',
-      tech: ['TypeScript', 'React', 'Node.js', 'PostgreSQL', 'Socket.io'],
-      icon: Code,
+      title: 'Niyukti Job Portal',
+      description: 'Comprehensive job portal connecting job seekers with employers. Features advanced search filters, application tracking, resume builder, and employer dashboard for job management.',
+      tech: ['React', 'Node.js', 'MongoDB', 'Express', 'JWT', 'Socket.io'],
+      icon: Briefcase,
       color: 'from-green-500 to-emerald-500',
-      demoUrl: '#',
-      githubUrl: '#',
-      features: ['Drag & Drop', 'Real-time Collaboration', 'Progress Tracking', 'Team Management']
+      //demoUrl: '#',
+      githubUrl: 'https://github.com/Anand-8876/Niyukti-JOB-Portal',
+      features: ['Job Search & Filter', 'Resume Builder', 'Application Tracking', 'Employer Dashboard']
     },
     {
-      title: 'Mobile Weather App',
-      description: 'Cross-platform mobile application providing detailed weather forecasts with beautiful animations and location-based services.',
-      tech: ['React Native', 'TypeScript', 'Weather API', 'Redux'],
-      icon: Smartphone,
+      title: 'Nexus AI',
+      description: 'Simple and intuitive chatbot application built with modern web technologies. Features clean UI, message history, and responsive design for seamless user interaction.',
+      tech: ['React', 'JavaScript', 'CSS3', 'HTML5', 'Node.js', 'Express'],
+      icon: Brain,
       color: 'from-orange-500 to-red-500',
-      demoUrl: '#',
-      githubUrl: '#',
-      features: ['Cross-platform', 'Location Services', 'Beautiful UI', 'Offline Support']
+      //demoUrl: '#',
+      githubUrl: 'https://github.com/Anand-8876/Nexus-Ai',
+      features: ['Clean Chat Interface', 'Message History', 'Responsive Design', 'Real-time Messaging']
     },
     {
-      title: 'Data Analytics Dashboard',
-      description: 'Interactive dashboard for data visualization and analytics with real-time charts, filters, and export functionality.',
-      tech: ['React', 'D3.js', 'Python', 'FastAPI', 'PostgreSQL'],
-      icon: Database,
+      title: 'Cam Brain',
+      description: 'JavaScript-based machine learning model trainer for browser environments. Provides an intuitive interface for training, testing, and deploying ML models directly in the browser using TensorFlow.js.',
+      tech: ['JavaScript', 'TensorFlow.js', 'HTML5', 'CSS3', 'Chart.js', 'Web APIs'],
+      icon: Brain,
       color: 'from-yellow-500 to-orange-500',
-      demoUrl: '#',
-      githubUrl: '#',
-      features: ['Interactive Charts', 'Real-time Data', 'Export Features', 'Custom Filters']
+      //demoUrl: '#',
+      githubUrl: 'https://github.com/Anand-8876/cambrain',
+      features: ['Browser-based Training', 'Model Visualization', 'Real-time Metrics', 'Export Models']
     }
   ];
 
@@ -73,7 +73,7 @@ const Projects = () => {
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-white to-gray-400 mx-auto mb-8 animate-slide-in"></div>
           <p className="text-lg text-gray-400 max-w-2xl mx-auto animate-fade-in-up">
-            A showcase of my recent work, demonstrating expertise in full-stack development, AI/ML, and modern web technologies
+            A showcase of my recent work, demonstrating expertise in AI/ML, computer vision, full-stack development, and modern web technologies
           </p>
         </div>
 
@@ -104,12 +104,12 @@ const Projects = () => {
                     <project.icon className="w-8 h-8 text-white" />
                   </div>
                   <div className="flex space-x-3">
-                    <a
+                    {/* <a
                       href={project.demoUrl}
                       className="p-2 bg-gray-700/50 rounded-lg hover:bg-gray-600/50 transition-all duration-300 hover:scale-110 group-hover:rotate-12"
                     >
                       <Play className="w-5 h-5 text-white" />
-                    </a>
+                    </a> */}
                     <a
                       href={project.githubUrl}
                       className="p-2 bg-gray-700/50 rounded-lg hover:bg-gray-600/50 transition-all duration-300 hover:scale-110 group-hover:-rotate-12"
@@ -167,7 +167,7 @@ const Projects = () => {
         <div className="text-center mt-16 animate-fade-in-up">
           <p className="text-gray-400 mb-6">Want to see more of my work?</p>
           <a
-            href="https://github.com/anand"
+            href="https://github.com/Anand-8876"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center space-x-2 px-8 py-4 bg-gradient-to-r from-white to-gray-300 text-black font-semibold rounded-lg hover:from-gray-100 hover:to-white transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl hover:rotate-1"
