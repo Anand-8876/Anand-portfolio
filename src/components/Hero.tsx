@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import avatar from './waving.mp4';
 
 // Custom hook for intersection observer
 const useInView = (options = {}) => {
@@ -32,9 +33,6 @@ const Hero = () => {
   const [displayText, setDisplayText] = useState('');
   const [isTyping, setIsTyping] = useState(true);
   const [heroRef, heroInView] = useInView();
-  const [videoError, setVideoError] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-  const videoRef = useRef(null);
 
   const roles = [
     'Full-Stack Developer',
@@ -42,66 +40,6 @@ const Hero = () => {
     'Problem Solver',
     'Always Learning',
   ];
-
-  // Detect mobile device
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
-    };
-    
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  // Enhanced video loading and error handling
-  useEffect(() => {
-    const video = videoRef.current;
-    if (video && !videoError) {
-      // Force video to load and play
-      const playVideo = async () => {
-        try {
-          // Set video properties before playing
-          video.muted = true;
-          video.playsInline = true;
-          video.autoplay = true;
-          video.loop = true;
-          
-          // Load the video
-          video.load();
-          
-          // Wait a bit then try to play
-          setTimeout(async () => {
-            try {
-              await video.play();
-            } catch (playError) {
-              console.warn('Video autoplay failed:', playError);
-              // Fallback: try to play on first user interaction
-              const playOnInteraction = async () => {
-                try {
-                  await video.play();
-                  document.removeEventListener('touchstart', playOnInteraction);
-                  document.removeEventListener('click', playOnInteraction);
-                } catch (e) {
-                  console.warn('Video play on interaction failed:', e);
-                }
-              };
-              
-              document.addEventListener('touchstart', playOnInteraction);
-              document.addEventListener('click', playOnInteraction);
-            }
-          }, 500);
-        } catch (error) {
-          console.error('Video setup failed:', error);
-          setVideoError(true);
-        }
-      };
-
-      if (heroInView) {
-        playVideo();
-      }
-    }
-  }, [heroInView, videoError]);
 
   useEffect(() => {
     let timeout;
@@ -145,49 +83,6 @@ const Hero = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const handleVideoError = (e) => {
-    console.error('Video failed to load:', e);
-    setVideoError(true);
-  };
-
-  const renderAvatar = () => {
-    if (videoError || isMobile) {
-      // Fallback for mobile or when video fails
-      return (
-        <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-full shadow-2xl border-4 border-white/20 backdrop-blur-sm bg-gradient-to-r from-gray-700 to-gray-600 flex items-center justify-center text-4xl sm:text-5xl relative z-10 animate-pulse">
-          👋
-        </div>
-      );
-    }
-
-    return (
-      <video
-        ref={videoRef}
-        autoPlay
-        loop
-        muted
-        playsInline
-        webkit-playsinline="true"
-        controls={false}
-        preload="metadata"
-        className="w-32 h-32 sm:w-40 sm:h-40 rounded-full shadow-2xl border-4 border-white/20 backdrop-blur-sm object-cover relative z-10"
-        style={{ objectFit: 'cover' }}
-        onError={handleVideoError}
-        onCanPlay={() => {
-          console.log('Video can play');
-          if (videoRef.current) {
-            videoRef.current.play().catch(e => console.warn('Play failed:', e));
-          }
-        }}
-      >
-        {/* Fallback content */}
-        <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-full shadow-2xl border-4 border-white/20 backdrop-blur-sm bg-gradient-to-r from-gray-700 to-gray-600 flex items-center justify-center text-4xl sm:text-5xl">
-          👋
-        </div>
-      </video>
-    );
-  };
 
   return (
     <section 
@@ -233,7 +128,23 @@ const Hero = () => {
               {/* Animated glow effect */}
               <div className="absolute -inset-4 bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 rounded-full blur-2xl opacity-30 animate-pulse group-hover:opacity-50 transition-opacity duration-500"></div>
               
-              {renderAvatar()}
+              <video
+                src={avatar}
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-32 h-32 sm:w-40 sm:h-40 rounded-full shadow-2xl border-4 border-white/20 backdrop-blur-sm object-cover relative z-10"
+                style={{ objectFit: 'cover' }}
+                onError={(e) => {
+                  console.error('Video failed to load:', e);
+                  // Fallback: show emoji avatar
+                  const fallback = document.createElement('div');
+                  fallback.className = 'w-32 h-32 sm:w-40 sm:h-40 rounded-full shadow-2xl border-4 border-white/20 backdrop-blur-sm bg-gradient-to-r from-gray-700 to-gray-600 flex items-center justify-center text-4xl sm:text-5xl';
+                  fallback.innerHTML = '👋';
+                  e.target.parentNode.replaceChild(fallback, e.target);
+                }}
+              />
               
               {/* Shimmer effect */}
               <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-transparent via-white/10 to-transparent animate-pulse opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
@@ -248,7 +159,7 @@ const Hero = () => {
                 Hi there, I'm 
               </span>
               <br />
-              <span className="bg-gradient-to-r from-white via-gray-100 to-black bg-clip-text text-transparent animate-pulse">
+              <span className="bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-pulse">
                 Anand!
               </span>
             </h1>
@@ -276,17 +187,17 @@ const Hero = () => {
           }`}>
             <button 
               onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-              className="group px-8 py-4 bg-gradient-to-r from-white via-gray-100 to-black text-white font-semibold rounded-lg hover:from-gray-100 hover:via-white hover:to-gray-800 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl relative overflow-hidden"
+              className="group px-8 py-4 bg-gradient-to-r from-cyan-500 to-purple-600 text-white font-semibold rounded-lg hover:from-cyan-400 hover:to-purple-500 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl relative overflow-hidden"
             >
-              <span className="relative z-10 bg-gradient-to-r from-black via-gray-800 to-black bg-clip-text text-transparent font-bold">Get In Touch</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-black/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+              <span className="relative z-10">Get In Touch</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
             </button>
             <button 
               onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
-              className="group px-8 py-4 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-black transform hover:scale-105 transition-all duration-300 relative overflow-hidden"
+              className="group px-8 py-4 border-2 border-cyan-400 text-cyan-400 font-semibold rounded-lg hover:bg-cyan-400 hover:text-black transform hover:scale-105 transition-all duration-300 relative overflow-hidden"
             >
               <span className="relative z-10">Learn More</span>
-              <div className="absolute inset-0 bg-white -translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+              <div className="absolute inset-0 bg-cyan-400 -translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
             </button>
           </div>
         </div>
