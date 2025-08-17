@@ -120,8 +120,8 @@ const Hero = () => {
         heroInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'
       }`}>
         <div className="space-y-8">
-          {/* Avatar with enhanced animations */}
-          <div className={`flex justify-center mb-8 transition-all duration-1000 delay-300 ${
+          {/* Avatar positioned above the heading with proper spacing */}
+          <div className={`flex justify-center pt-8 sm:pt-12 md:pt-16 transition-all duration-1000 delay-300 ${
             heroInView ? 'opacity-100 scale-100' : 'opacity-0 scale-75'
           }`}>
             <div className="transform hover:scale-110 transition-all duration-500 hover:rotate-3 relative group">
@@ -151,6 +151,7 @@ const Hero = () => {
             </div>
           </div>
 
+          {/* Main heading positioned after avatar */}
           <div className={`relative transition-all duration-1000 delay-500 ${
             heroInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}>
