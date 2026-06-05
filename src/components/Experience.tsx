@@ -1,399 +1,257 @@
-import React, { useState, useEffect } from 'react';
-import { Calendar, MapPin, Award, TrendingUp, Code, Users, Lightbulb, Target, ChevronRight } from 'lucide-react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Calendar, MapPin, Award, Terminal, Code, GitCommit, GitBranch, TerminalSquare, Compass, ShieldCheck } from 'lucide-react';
+
+interface ExperienceItem {
+  title: string;
+  company: string;
+  location: string;
+  period: string;
+  type: string;
+  description: string;
+  achievements: string[];
+  skills: string[];
+  icon: any;
+}
 
 const Experience = () => {
-  const [activeExperience, setActiveExperience] = useState(0);
-  const [isVisible, setIsVisible] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  useEffect(() => {
-    setIsVisible(true);
-  }, []);
-
-  const experiences = [
+  const experiences: ExperienceItem[] = [
     {
-      title: 'Full Stack Software Developer',
-      company: 'SS Innovations',
-      location: 'On-site',
-      period: '2025 - Present',
-      type: 'Software Engineering Intern',
+      title: 'Software Development Engineer',
+      company: 'SS Innovations International, Inc.',
+      location: 'Gurugram, India',
+      period: 'Sept 2025 - Present',
+      type: 'Full-time SDE',
       description:
-        'Developing and maintaining SSI Sutra, the company\'s flagship web application. Contributing to full-stack development initiatives while gaining hands-on experience in enterprise-level software development practices.',
+        'Spearheaded the end-to-end development of "Sutra v3", a highly scalable enterprise-grade web application built using the MERN Stack. Implemented complex dashboards, security audits, and optimized traffic handling workflows.',
       achievements: [
-        'Actively contributing to MERN stack application development and feature implementation',
-        'Architecting and implementing new features to enhance user experience and system functionality',
-        'Gaining expertise in system design principles and scalable architecture patterns',
-        'Integrated Swagger API documentation and optimized database queries using SQL',
+        'Security: Integrated AWS Cognito for auth, created AWS Lambda functions for user pool synchronization, encrypted Local Storage auth tokens, and implemented CryptoJS API response encryption.',
+        'Frontend: Architected responsive interfaces using React, Vite, Redux Toolkit, and Material-UI (MUI), featuring charts (Chart.js/Recharts) and GIS mapping (React Leaflet).',
+        'Backend: Designed scalable Node.js/Express.js REST APIs and managed complex database schemas using MongoDB/Mongoose with query optimizations.',
+        'Cloud & DevOps: Configured EC2 Load Balancers for traffic scalability, integrated S3, SES, and SNS, containerized setups with Docker/Nginx, and automated GitLab CI/CD builds.',
+        'Architecture: Authored Low-Level Design (LLD) documents for Incident Management, Service Operations, and Pickup Tracking systems.'
       ],
-      skills: ['React', 'Node.js', 'MongoDB', 'Express.js', 'JavaScript', 'Socket.io', 'MySQL', 'Swagger API'],
-      icon: Code,
-      color: 'from-blue-500 to-cyan-500',
+      skills: ['React.js', 'Redux Toolkit', 'Material-UI (MUI)', 'Vite', 'Node.js', 'Express.js', 'MongoDB', 'AWS Cognito/Lambda', 'CryptoJS', 'Docker', 'Nginx', 'GitLab CI/CD', 'WebRTC', 'Socket.io', 'Chart.js', 'React Leaflet', 'Nodemailer'],
+      icon: ShieldCheck
     },
     {
-      title: 'Full-Stack SAP Developer',
-      company: 'Plumcot Systems',
-      location: 'Remote',
-      period: '2024 - 2025',
-      type: 'Software Development Trainee',
+      title: 'Full Stack Developer Intern',
+      company: 'SS Innovations International, Inc.',
+      location: 'Gurugram, India',
+      period: 'Mar 2025 - Aug 2025',
+      type: 'Internship',
       description:
-        'Specialized in designing, developing, and maintaining SAP-integrated client applications. Collaborated with cross-functional teams to deliver scalable, enterprise-grade software solutions within aggressive project timelines.',
+        'Engineered features for hospital telemetry systems and medical data visualization dashboards.',
       achievements: [
-        'Successfully architected and delivered multiple enterprise applications with seamless SAP integration',
-        'Developed responsive UI components using SAP UI5 framework and provided technical guidance to development teams',
-        'Collaborated with clients to gather requirements and translate business needs into technical solutions',
+        'Optimized custom telemetry streaming components utilizing React, Vite, and Node.js backend nodes.',
+        'Configured real-time hospital network communications and telemetry feeds with Socket.io.'
       ],
-      skills: [
-        'JavaScript',
-        'React',
-        'Express.js',
-        'PostgreSQL',
-        'Redis',
-        'Git',
-        'SAP UI5',
-        'OData Services',
-        'SAP Fiori',
-        'SAP ABAP Integration',
-      ],
-      icon: Users,
-      color: 'from-green-500 to-emerald-500',
+      skills: ['React', 'Vite', 'Node.js', 'Express.js', 'Socket.io', 'MongoDB', 'Tailwind CSS'],
+      icon: Code
     },
     {
-      title: 'Frontend Developer',
+      title: 'Software Developer Intern',
       company: 'Doubt Free',
       location: 'Remote',
-      period: '2024',
-      type: 'Frontend Development Intern',
+      period: 'Oct 2023 - Mar 2024',
+      type: 'Internship',
       description:
-        'Focused on creating responsive, interactive user interfaces using modern frontend technologies. Collaborated closely with design teams to translate wireframes and mockups into pixel-perfect, accessible web applications.',
+        'Designed frontend components and optimized code blocks for a high-traffic education portal.',
       achievements: [
-        'Successfully delivered a complete client website as the primary internship deliverable',
-        'Mastered React ecosystem and Next.js framework for building performant web applications',
-        'Developed proficiency in modern UI/UX principles and design system implementation',
+        'Built interactive React frontend routes, forms, and layout pages for online doubt clearance.',
+        'Audited website styles, implementing Tailwind CSS for responsive mobile and web layouts.'
       ],
-      skills: ['HTML5', 'CSS3', 'JavaScript (ES6+)', 'React', 'Next.js', 'Tailwind CSS', 'Figma', 'Responsive Design'],
-      icon: Lightbulb,
-      color: 'from-purple-500 to-pink-500',
+      skills: ['React', 'Next.js', 'JavaScript', 'HTML5', 'CSS3', 'Tailwind CSS', 'Git'],
+      icon: TerminalSquare
     },
     {
-      title: 'Software Engineering Intern',
-      company: 'H-care',
-      location: 'On-campus',
-      period: '2023',
-      type: 'Technical Internship Program',
+      title: 'Software Engineer Intern',
+      company: 'H care',
+      location: 'Gurugram, India',
+      period: 'Sept 2022 - Nov 2022',
+      type: 'Internship',
       description:
-        'Comprehensive internship program focusing on fundamental software engineering concepts, data structures, algorithms, and emerging technologies including artificial intelligence and machine learning.',
+        'Collaborated on basic healthcare platform features and studied engineering team workflows.',
       achievements: [
-        'Collaborated with senior developers to understand software development lifecycle and best practices',
-        'Gained exposure to various technology stacks and modern application architectures',
-        'Expanded skill set into digital marketing domain, understanding the intersection of technology and business',
+        'Created UI modules and assisted senior developers in troubleshooting REST endpoints.',
+        'Learned production Git flows, agile methodologies, and test assertions in Java.'
       ],
-      skills: ['Data Structures', 'Algorithms', 'Python', 'Java', 'Machine Learning Fundamentals', 'Research Methodology', 'WordPress', 'Shopify'],
-      icon: Target,
-      color: 'from-orange-500 to-red-500',
-    },
+      skills: ['Python', 'Java', 'Data Structures', 'Algorithms', 'Agile Methodologies', 'Git'],
+      icon: Compass
+    }
   ];
 
-  // Get the active icon component
-  const ActiveIcon = experiences[activeExperience].icon;
-
   return (
-    <section id="experience" className="py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-      {/* Enhanced animated background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-black to-gray-900"></div>
-      
-      {/* Floating particles animation */}
-      <div className="absolute inset-0 opacity-10">
-        {[...Array(6)].map((_, i) => (
-          <div
-            key={i}
-            className={`absolute w-2 h-2 bg-white rounded-full animate-float`}
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${i * 0.5}s`,
-              animationDuration: `${3 + Math.random() * 2}s`,
-            }}
-          ></div>
-        ))}
-      </div>
-      
-      {/* Gradient orbs */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-10 left-20 w-40 h-40 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-10 right-20 w-32 h-32 bg-gradient-to-r from-green-500 to-cyan-500 rounded-full blur-3xl animate-pulse" style={{animationDelay: '1s'}}></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-60 h-60 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full blur-3xl animate-pulse" style={{animationDelay: '2s'}}></div>
-      </div>
-
-      <div className="max-w-6xl mx-auto relative z-10">
-        {/* Enhanced header with stagger animation */}
-        <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <h2 className="text-4xl sm:text-5xl font-bold mb-6 bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
-            Professional Experience
+    <section 
+      id="experience" 
+      className="py-24 px-4 sm:px-6 lg:px-8 bg-black border-t border-neutral-900 relative overflow-hidden"
+    >
+      <div className="max-w-6xl mx-auto relative z-10 font-mono">
+        
+        {/* Header */}
+        <div className="text-left mb-16 space-y-4">
+          <p className="text-xs font-mono text-neutral-500 uppercase tracking-widest">&gt; // 04. EXPERIENCE_LOG</p>
+          <h2 className="text-3xl sm:text-5xl font-bold text-white tracking-tight uppercase">
+            Professional History
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-white to-gray-400 mx-auto mb-8 transform origin-left transition-transform duration-1000" style={{transitionDelay: '0.3s'}}></div>
-          <p className={`text-lg text-gray-400 max-w-2xl mx-auto transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`} style={{transitionDelay: '0.6s'}}>
-            A comprehensive overview of my professional journey and technical expertise in software development
-          </p>
+          <div className="w-16 h-1 bg-neutral-800 rounded-full"></div>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-8">
-          {/* Enhanced Timeline Navigation */}
-          <div className="lg:col-span-1">
-            <div className="sticky top-24 space-y-4">
-              {experiences.map((exp, index) => {
-                const Icon = exp.icon;
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          
+          {/* Left Side: Git Commit Tree Timeline Navigation (5 cols) */}
+          <div className="lg:col-span-5 relative">
+            <div className="absolute left-6 top-4 bottom-4 w-0.5 bg-neutral-900"></div>
+
+            <div className="space-y-6">
+              {experiences.map((exp, idx) => {
+                const isActive = idx === activeIndex;
                 return (
                   <button
-                    key={index}
-                    onClick={() => setActiveExperience(index)}
-                    className={`w-full text-left p-4 rounded-xl border transition-all duration-500 hover:scale-105 transform ${
-                      activeExperience === index
-                        ? 'bg-gradient-to-r from-gray-700/50 to-gray-800/50 border-white/30 shadow-lg shadow-gray-900/50 scale-105'
-                        : 'bg-gray-800/30 border-gray-700/30 hover:border-gray-600/50 hover:shadow-md'
-                    }`}
-                    style={{
-                      animationDelay: `${index * 0.1}s`,
-                    }}
+                    key={idx}
+                    onClick={() => setActiveIndex(idx)}
+                    className="w-full text-left flex items-start space-x-6 group relative z-10 focus:outline-none"
                   >
-                    <div className="flex items-center space-x-3 mb-2">
-                      <div className={`p-2 rounded-lg bg-gradient-to-r ${exp.color} bg-opacity-20 transition-all duration-300 ${
-                        activeExperience === index ? 'scale-110' : ''
+                    
+                    {/* Node Dot / Commit Marker */}
+                    <div className="flex items-center justify-center h-12">
+                      <div className={`w-12 h-12 rounded-full border flex items-center justify-center transition-all duration-300 ${
+                        isActive 
+                          ? 'bg-white border-white shadow-[0_0_15px_rgba(255,255,255,0.2)]' 
+                          : 'bg-black border-neutral-800 hover:border-neutral-700'
                       }`}>
-                        <Icon className="w-5 h-5 text-white" />
+                        {isActive ? (
+                          <GitCommit className="w-5 h-5 text-black" />
+                        ) : (
+                          <GitBranch className="w-5 h-5 text-neutral-600 group-hover:text-neutral-400" />
+                        )}
                       </div>
-                      <div className="flex-1 min-w-0">
-                        <h3
-                          className={`font-semibold text-sm truncate transition-all duration-300 ${
-                            activeExperience === index ? 'text-white' : 'text-gray-300'
-                          }`}
-                        >
-                          {exp.title}
-                        </h3>
-                        <p
-                          className={`text-xs truncate transition-all duration-300 ${
-                            activeExperience === index ? 'text-gray-300' : 'text-gray-500'
-                          }`}
-                        >
-                          {exp.company}
-                        </p>
+                    </div>
+
+                    {/* Timeline Button Body */}
+                    <div className={`flex-1 p-4 rounded border transition-all duration-300 ${
+                      isActive 
+                        ? 'bg-neutral-950 border-neutral-700' 
+                        : 'bg-transparent border-transparent hover:border-neutral-900/60 hover:bg-neutral-950/40'
+                    }`}>
+                      <div className="flex justify-between items-start">
+                        <span className={`text-[10px] uppercase font-bold tracking-widest ${
+                          isActive ? 'text-white' : 'text-neutral-500'
+                        }`}>
+                          {exp.period}
+                        </span>
+                        <span className="text-[9px] text-neutral-600">COMMIT_0{idx}</span>
                       </div>
-                      <ChevronRight className={`w-4 h-4 transition-all duration-300 ${
-                        activeExperience === index ? 'text-white translate-x-1' : 'text-gray-600'
-                      }`} />
+                      <h3 className={`text-sm font-bold mt-1 transition-colors ${
+                        isActive ? 'text-white' : 'text-neutral-300 group-hover:text-white'
+                      }`}>
+                        {exp.title}
+                      </h3>
+                      <p className="text-[11px] text-neutral-500 mt-0.5">{exp.company}</p>
                     </div>
-                    <div className="flex items-center space-x-2 text-xs text-gray-500">
-                      <Calendar className="w-3 h-3" />
-                      <span>{exp.period}</span>
-                    </div>
+
                   </button>
                 );
               })}
             </div>
           </div>
 
-          {/* Enhanced Experience Details */}
-          <div className="lg:col-span-2">
-            <div className="bg-gradient-to-br from-gray-800/50 to-gray-900/80 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-8 min-h-[600px] relative overflow-hidden transition-all duration-700">
-              {/* Animated background gradient */}
-              <div
-                className={`absolute inset-0 bg-gradient-to-br ${experiences[activeExperience].color} opacity-5 transition-all duration-1000`}
-              ></div>
-
-              {/* Animated border effect */}
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer"></div>
-
-              <div className="relative z-10">
-                {/* Enhanced Header */}
-                <div className="flex items-start justify-between mb-6">
-                  <div className="flex items-center space-x-4">
-                    <div
-                      className={`p-4 rounded-xl bg-gradient-to-r ${experiences[activeExperience].color} bg-opacity-20 animate-pulse-soft shadow-lg`}
-                    >
-                      <ActiveIcon className="w-8 h-8 text-white" />
-                    </div>
-                    <div>
-                      <h3 className="text-2xl font-bold text-white mb-1 transition-all duration-500 animate-slide-in-right">
-                        {experiences[activeExperience].title}
-                      </h3>
-                      <p className="text-lg text-gray-300 transition-all duration-500 animate-slide-in-right" style={{animationDelay: '0.1s'}}>
-                        {experiences[activeExperience].company}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="text-right animate-slide-in-left">
-                    <div className="flex items-center space-x-2 text-gray-400 mb-1">
-                      <Calendar className="w-4 h-4" />
-                      <span className="text-sm font-medium">{experiences[activeExperience].period}</span>
-                    </div>
-                    <div className="flex items-center space-x-2 text-gray-400">
-                      <MapPin className="w-4 h-4" />
-                      <span className="text-sm">{experiences[activeExperience].location}</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Enhanced Type Badge */}
-                <div className="mb-6 animate-fade-in-up" style={{animationDelay: '0.2s'}}>
-                  <span
-                    className={`inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-gradient-to-r ${experiences[activeExperience].color} bg-opacity-20 text-white border border-gray-600/30 shadow-md backdrop-blur-sm`}
-                  >
-                    {experiences[activeExperience].type}
+          {/* Right Side: Experience Details Console (7 cols) */}
+          <div className="lg:col-span-7">
+            <div className="editor-window flex flex-col min-h-[500px]">
+              
+              {/* Fake Terminal Header */}
+              <div className="editor-header flex justify-between items-center select-none">
+                <div className="flex items-center">
+                  <div className="editor-dot bg-neutral-850"></div>
+                  <div className="editor-dot bg-neutral-850"></div>
+                  <div className="editor-dot bg-neutral-850"></div>
+                  <span className="text-[10px] text-neutral-500 ml-4 font-mono">
+                    experience_detail.log // SS Innovations & Others
                   </span>
                 </div>
-
-                {/* Enhanced Description */}
-                <p className="text-gray-300 mb-8 leading-relaxed text-base animate-fade-in-up" style={{animationDelay: '0.3s'}}>
-                  {experiences[activeExperience].description}
-                </p>
-
-                {/* Enhanced Achievements */}
-                <div className="mb-8 animate-fade-in-up" style={{animationDelay: '0.4s'}}>
-                  <h4 className="text-lg font-semibold text-white mb-4 flex items-center">
-                    <Award className="w-5 h-5 mr-2 text-yellow-400" />
-                    Key Achievements & Responsibilities
-                  </h4>
-                  <ul className="space-y-4">
-                    {experiences[activeExperience].achievements.map((achievement, index) => (
-                      <li
-                        key={index}
-                        className="flex items-start space-x-3 text-gray-300 animate-slide-in-right transition-all duration-300 hover:text-white hover:translate-x-2"
-                        style={{ animationDelay: `${0.5 + index * 0.1}s` }}
-                      >
-                        <div className="w-2 h-2 bg-gradient-to-r from-green-400 to-blue-400 rounded-full mt-2 animate-pulse flex-shrink-0"></div>
-                        <span className="text-sm leading-relaxed">{achievement}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Enhanced Skills */}
-                <div className="animate-fade-in-up" style={{animationDelay: '0.7s'}}>
-                  <h4 className="text-lg font-semibold text-white mb-4 flex items-center">
-                    <TrendingUp className="w-5 h-5 mr-2 text-blue-400" />
-                    Technologies & Skills
-                  </h4>
-                  <div className="flex flex-wrap gap-3">
-                    {experiences[activeExperience].skills.map((skill, index) => (
-                      <span
-                        key={index}
-                        className="px-4 py-2 bg-gray-700/50 text-gray-300 text-sm rounded-full border border-gray-600/50 hover:border-gray-500/50 hover:bg-gray-600/50 hover:text-white transition-all duration-300 hover:scale-110 hover:shadow-md cursor-default animate-bounce-in backdrop-blur-sm"
-                        style={{ animationDelay: `${0.8 + index * 0.05}s` }}
-                      >
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                </div>
+                <Terminal className="w-3.5 h-3.5 text-neutral-600" />
               </div>
 
-              {/* Enhanced decorative elements */}
-              <div className="absolute top-4 right-4 w-3 h-3 bg-white rounded-full animate-ping opacity-20"></div>
-              <div className="absolute bottom-4 left-4 w-2 h-2 bg-gray-400 rounded-full animate-ping opacity-30" style={{animationDelay: '1s'}}></div>
-              <div className="absolute top-1/2 right-8 w-1 h-1 bg-blue-400 rounded-full animate-ping opacity-40" style={{animationDelay: '0.5s'}}></div>
+              {/* Terminal Log Panel Content */}
+              <div className="p-6 bg-neutral-950 flex-1 flex flex-col justify-between text-neutral-400 text-xs leading-relaxed space-y-6">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeIndex}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.2 }}
+                    className="space-y-6 flex-1 flex flex-col justify-between"
+                  >
+                    <div>
+                      {/* Job title & info */}
+                      <div className="border-b border-neutral-900 pb-4 space-y-2">
+                        <div className="flex flex-wrap items-center justify-between gap-2">
+                          <h3 className="text-base font-bold text-white uppercase tracking-wider">
+                            {experiences[activeIndex].title}
+                          </h3>
+                          <span className="px-2.5 py-0.5 rounded bg-neutral-900 border border-neutral-850 text-neutral-400 text-[10px]">
+                            {experiences[activeIndex].type}
+                          </span>
+                        </div>
+                        <div className="flex flex-wrap gap-x-4 gap-y-1 text-neutral-500 text-[11px]">
+                          <div className="flex items-center space-x-1">
+                            <Calendar className="w-3.5 h-3.5" />
+                            <span>{experiences[activeIndex].period}</span>
+                          </div>
+                          <div className="flex items-center space-x-1">
+                            <MapPin className="w-3.5 h-3.5" />
+                            <span>{experiences[activeIndex].location}</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Brief description */}
+                      <p className="text-neutral-400 text-[11px] leading-relaxed pt-2">
+                        &gt; {experiences[activeIndex].description}
+                      </p>
+
+                      {/* Achievements bullets */}
+                      <div className="mt-4 space-y-3">
+                        <span className="text-neutral-600 block text-[9px] uppercase tracking-widest">// key_deliverables:</span>
+                        <ul className="space-y-2.5">
+                          {experiences[activeIndex].achievements.map((ach, achIdx) => (
+                            <li key={achIdx} className="flex items-start space-x-2 text-neutral-300">
+                              <span className="text-neutral-600 mt-1 select-none font-bold">+</span>
+                              <span className="text-[11px] leading-relaxed">{ach}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+
+                    {/* Tags */}
+                    <div className="pt-4 border-t border-neutral-900/60">
+                      <span className="text-neutral-600 block text-[9px] uppercase tracking-widest mb-2">// associated_skills:</span>
+                      <div className="flex flex-wrap gap-1.5">
+                        {experiences[activeIndex].skills.map((skill, sIdx) => (
+                          <span
+                            key={sIdx}
+                            className="px-2 py-0.5 rounded bg-neutral-900 border border-neutral-850 text-neutral-400 text-[10px]"
+                          >
+                            {skill}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+
             </div>
           </div>
-        </div>
-      </div>
 
-      <style jsx>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0px) rotate(0deg); }
-          33% { transform: translateY(-10px) rotate(120deg); }
-          66% { transform: translateY(5px) rotate(240deg); }
-        }
-        
-        @keyframes shimmer {
-          0% { transform: translateX(-100%); }
-          100% { transform: translateX(100%); }
-        }
-        
-        @keyframes pulse-soft {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.8; }
-        }
-        
-        .animate-float {
-          animation: float 4s ease-in-out infinite;
-        }
-        
-        .animate-shimmer {
-          animation: shimmer 3s ease-in-out infinite;
-        }
-        
-        .animate-pulse-soft {
-          animation: pulse-soft 2s ease-in-out infinite;
-        }
-        
-        .animate-fade-in-up {
-          animation: fadeInUp 0.6s ease-out forwards;
-          opacity: 0;
-        }
-        
-        .animate-slide-in-right {
-          animation: slideInRight 0.6s ease-out forwards;
-          opacity: 0;
-        }
-        
-        .animate-slide-in-left {
-          animation: slideInLeft 0.6s ease-out forwards;
-          opacity: 0;
-        }
-        
-        .animate-bounce-in {
-          animation: bounceIn 0.6s ease-out forwards;
-          opacity: 0;
-        }
-        
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        
-        @keyframes slideInRight {
-          from {
-            opacity: 0;
-            transform: translateX(-20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-        
-        @keyframes slideInLeft {
-          from {
-            opacity: 0;
-            transform: translateX(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-        
-        @keyframes bounceIn {
-          from {
-            opacity: 0;
-            transform: scale(0.3);
-          }
-          50% {
-            opacity: 1;
-            transform: scale(1.05);
-          }
-          70% {
-            transform: scale(0.9);
-          }
-          to {
-            opacity: 1;
-            transform: scale(1);
-          }
-        }
-      `}</style>
+        </div>
+
+      </div>
     </section>
   );
 };

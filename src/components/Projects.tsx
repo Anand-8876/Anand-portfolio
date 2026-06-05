@@ -1,182 +1,349 @@
 import React, { useState } from 'react';
-import { ExternalLink, Github, Play, Code, Database, Smartphone, Globe, Brain, Eye, Camera, Users, Briefcase } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ExternalLink, Github, Eye, Brain, Briefcase, FileCode, Check } from 'lucide-react';
+
+interface Project {
+  title: string;
+  description: string;
+  tech: string[];
+  icon: any;
+  githubUrl: string;
+  features: string[];
+  fileName: string;
+  codeSnippet: string;
+}
 
 const Projects = () => {
-  const [hoveredProject, setHoveredProject] = useState<number | null>(null);
+  const projects: Project[] = [
+    {
+      title: 'SSI Sutra v3',
+      description: 'Enterprise MERN-stack medical robotics platform. Integrated AWS Cognito authentication, synced via custom Lambda functions, and implemented CryptoJS API response encryption.',
+      tech: ['React.js', 'Redux Toolkit', 'Material-UI (MUI)', 'Node.js', 'Express.js', 'MongoDB', 'AWS Cognito/Lambda', 'CryptoJS', 'Docker', 'Nginx', 'Nodemailer'],
+      icon: Briefcase,
+      githubUrl: 'https://github.com/Anand-8876',
+      features: ['AWS Cognito & Lambda Auth Sync', 'CryptoJS API response encryption', 'Encrypted Local Storage tokens', 'EC2 Load Balancers for scaling'],
+      fileName: 'sutra_v3_security.ts',
+      codeSnippet: `import CryptoJS from 'crypto-js';
+import { CognitoIdentityProviderClient, AdminCreateUserCommand } from '@aws-sdk/client-cognito-identity-provider';
 
-  const projects = [
+// Secure and obfuscate API responses and preview data
+export function encryptResponse(payload: any, secretKey: string) {
+  return CryptoJS.AES.encrypt(JSON.stringify(payload), secretKey).toString();
+}
+
+// Lambda synchronization logic: Sync auth users with Cognito User Pool
+export async function syncUserToCognitoPool(user: { email: string }) {
+  const client = new CognitoIdentityProviderClient({ region: 'us-east-1' });
+  await client.send(new AdminCreateUserCommand({
+    UserPoolId: process.env.COGNITO_USER_POOL_ID,
+    Username: user.email
+  }));
+}`
+    },
+    {
+      title: 'Mantra Nucleus',
+      description: 'Real-time hospital management telemetry and medical dashboard streaming system supporting live feeds and surgical analytics dashboard.',
+      tech: ['React', 'Vite', 'Node.js', 'Express.js', 'WebRTC', 'Socket.io', 'MongoDB'],
+      icon: FileCode,
+      githubUrl: 'https://github.com/Anand-8876',
+      features: ['WebRTC Telemetry feeds', 'Socket.io hospital streams', 'Responsive data metrics', 'Highly optimized schemas'],
+      fileName: 'nucleus_telemetry.ts',
+      codeSnippet: `import { WebRTCStreamer } from './webrtc_stream';
+import io from 'socket.io-client';
+
+export function streamMantraNucleusTelemetry(hospitalId: string) {
+  const client = io('wss://nucleus.ssi.net');
+  const streamer = new WebRTCStreamer();
+  streamer.on('telemetry', (data) => {
+    client.emit('hospital_telemetry', { hospitalId, data });
+  });
+}`
+    },
     {
       title: 'Drowsiness Detection System',
       description: 'AI-powered real-time drowsiness detection system using computer vision and machine learning. Monitors driver alertness through eye tracking and facial recognition to prevent accidents.',
       tech: ['Python', 'OpenCV', 'TensorFlow', 'Keras', 'NumPy', 'Flask'],
       icon: Eye,
-      color: 'from-blue-500 to-cyan-500',
-      // //demoUrl: '#',
       githubUrl: 'https://github.com/Anand-8876/Drowsiness-detection-system',
-      features: ['Real-time Eye Tracking', 'Facial Recognition', 'Alert System', 'High Accuracy Detection']
+      features: ['Real-time Eye Tracking', 'Facial Recognition', 'Alert System', 'High Accuracy Detection'],
+      fileName: 'drowsiness_detect.py',
+      codeSnippet: `import cv2, tensorflow as tf
+from driver_alert import AlertSystem
+
+def monitor_driver_alertness(frame):
+    # Process camera frames using OpenCV
+    facial_landmarks = detect_landmarks(frame)
+    ear = calculate_eye_aspect_ratio(facial_landmarks)
+    
+    if ear < DEBOUNCE_THRESHOLD:
+        AlertSystem.trigger_buzzer() # 95%+ accuracy
+        return "ALERT: Drowsy Detected"
+    return "STATUS: Active"`
     },
     {
       title: 'Image Identification using CNN',
       description: 'Advanced computer vision application using Convolutional Neural Networks for multi-class image classification. Trained on custom datasets with data augmentation techniques achieving high accuracy.',
       tech: ['Python', 'TensorFlow', 'Keras', 'OpenCV', 'NumPy', 'Matplotlib'],
       icon: Brain,
-      color: 'from-purple-500 to-pink-500',
-      //demoUrl: '#',
       githubUrl: 'https://github.com/Anand-8876/image-classification-CNN',
-      features: ['Custom CNN Architecture', 'Data Augmentation', 'Transfer Learning', '95%+ Accuracy']
+      features: ['Custom CNN Architecture', 'Data Augmentation', 'Transfer Learning', '95%+ Accuracy'],
+      fileName: 'cnn_model.py',
+      codeSnippet: `from keras import layers, models
+
+def build_augment_cnn(input_shape, classes):
+    model = models.Sequential()
+    # Adding Conv + MaxPooling Layers
+    model.add(layers.Conv2D(32, (3,3), activation='relu', input_shape=input_shape))
+    model.add(layers.MaxPooling2D((2,2)))
+    model.add(layers.Conv2D(64, (3,3), activation='relu'))
+    model.add(layers.Dense(classes, activation='softmax'))
+    
+    model.compile(optimizer='adam', loss='categorical_crossentropy')
+    return model`
     },
     {
       title: 'Niyukti Job Portal',
       description: 'Comprehensive job portal connecting job seekers with employers. Features advanced search filters, application tracking, resume builder, and employer dashboard for job management.',
       tech: ['React', 'Node.js', 'MongoDB', 'Express', 'JWT', 'Socket.io'],
       icon: Briefcase,
-      color: 'from-green-500 to-emerald-500',
-      //demoUrl: '#',
       githubUrl: 'https://github.com/Anand-8876/Niyukti-JOB-Portal',
-      features: ['Job Search & Filter', 'Resume Builder', 'Application Tracking', 'Employer Dashboard']
+      features: ['Job Search & Filter', 'Resume Builder', 'Application Tracking', 'Employer Dashboard'],
+      fileName: 'job_portal_api.ts',
+      codeSnippet: `import express from 'express';
+import { verifyJWT } from '../middleware/auth';
+import { JobModel } from '../models/Job';
+
+const router = express.Router();
+
+router.post('/jobs/apply', verifyJWT, async (req, res) => {
+  const { jobId, resumeUrl } = req.body;
+  const application = await JobModel.createApplication({
+    jobId,
+    applicantId: req.user.id,
+    resumeUrl
+  });
+  
+  res.status(201).json({ status: 'applied', application });
+});`
     },
     {
       title: 'Nexus AI',
       description: 'Simple and intuitive chatbot application built with modern web technologies. Features clean UI, message history, and responsive design for seamless user interaction.',
       tech: ['React', 'JavaScript', 'CSS3', 'HTML5', 'Node.js', 'Express'],
       icon: Brain,
-      color: 'from-orange-500 to-red-500',
-      //demoUrl: '#',
       githubUrl: 'https://github.com/Anand-8876/Nexus-Ai',
-      features: ['Clean Chat Interface', 'Message History', 'Responsive Design', 'Real-time Messaging']
+      features: ['Clean Chat Interface', 'Message History', 'Responsive Design', 'Real-time Messaging'],
+      fileName: 'nexus_chat.jsx',
+      codeSnippet: `import React, { useState } from 'react';
+
+export default function ChatWindow() {
+  const [messages, setMessages] = useState([]);
+  
+  const sendMessage = async (text) => {
+    const payload = { role: 'user', text };
+    setMessages(prev => [...prev, payload]);
+    
+    const res = await fetch('/api/nexus/chat', { method: 'POST', body: JSON.stringify(payload) });
+    const data = await res.json();
+    setMessages(prev => [...prev, { role: 'assistant', text: data.reply }]);
+  };
+  
+  return <ChatLayout messages={messages} onSend={sendMessage} />;
+}`
     },
     {
       title: 'Cam Brain',
       description: 'JavaScript-based machine learning model trainer for browser environments. Provides an intuitive interface for training, testing, and deploying ML models directly in the browser using TensorFlow.js.',
       tech: ['JavaScript', 'TensorFlow.js', 'HTML5', 'CSS3', 'Chart.js', 'Web APIs'],
       icon: Brain,
-      color: 'from-yellow-500 to-orange-500',
-      //demoUrl: '#',
       githubUrl: 'https://github.com/Anand-8876/cambrain',
-      features: ['Browser-based Training', 'Model Visualization', 'Real-time Metrics', 'Export Models']
+      features: ['Browser-based Training', 'Model Visualization', 'Real-time Metrics', 'Export Models'],
+      fileName: 'cambrain_core.js',
+      codeSnippet: `import * as tf from '@tensorflow/tfjs';
+
+export async function trainModelInBrowser(dataX, dataY) {
+  const model = tf.sequential();
+  model.add(tf.layers.dense({ units: 8, activation: 'relu', inputShape: [1] }));
+  model.add(tf.layers.dense({ units: 1 }));
+  
+  model.compile({
+    optimizer: tf.train.adam(0.01),
+    loss: 'meanSquaredError'
+  });
+  
+  await model.fit(dataX, dataY, { epochs: 50 });
+  return model;
+}`
     }
   ];
 
-  return (
-    <section id="projects" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-black via-gray-900 to-black relative overflow-hidden">
-      {/* Animated background elements */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-10 w-40 h-40 bg-gradient-to-r from-green-500 to-cyan-500 rounded-full blur-3xl animate-pulse animation-delay-200"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 bg-gradient-to-r from-pink-500 to-orange-500 rounded-full blur-3xl animate-pulse animation-delay-400"></div>
-      </div>
+  // Keep track of active tab per project: 'readme' or 'code'
+  const [activeTabs, setActiveTabs] = useState<Record<number, 'readme' | 'code'>>({});
 
+  const toggleTab = (idx: number, tab: 'readme' | 'code') => {
+    setActiveTabs(prev => ({
+      ...prev,
+      [idx]: tab
+    }));
+  };
+
+  return (
+    <section 
+      id="projects" 
+      className="py-24 px-4 sm:px-6 lg:px-8 bg-black border-t border-neutral-900 relative overflow-hidden"
+    >
       <div className="max-w-6xl mx-auto relative z-10">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl sm:text-5xl font-bold mb-6 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent animate-fade-in">
+        
+        {/* Header */}
+        <div className="text-left mb-16 space-y-4">
+          <p className="text-xs font-mono text-neutral-500 uppercase tracking-widest">&gt; // 03. CODE_REPOSITORY</p>
+          <h2 className="text-3xl sm:text-5xl font-bold text-white tracking-tight uppercase">
             Featured Projects
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-white to-gray-400 mx-auto mb-8 animate-slide-in"></div>
-          <p className="text-lg text-gray-400 max-w-2xl mx-auto animate-fade-in-up">
-            A showcase of my recent work, demonstrating expertise in AI/ML, computer vision, full-stack development, and modern web technologies
-          </p>
+          <div className="w-16 h-1 bg-neutral-800 rounded-full"></div>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-8">
-          {projects.map((project, index) => (
-            <div
-              key={index}
-              className="group bg-gradient-to-br from-gray-800/50 to-gray-900/80 border border-gray-700/50 rounded-2xl p-8 hover:border-gray-600/50 transition-all duration-500 hover:transform hover:scale-105 hover:-translate-y-2 relative overflow-hidden animate-slide-in-up"
-              style={{ animationDelay: `${index * 100}ms` }}
-              onMouseEnter={() => setHoveredProject(index)}
-              onMouseLeave={() => setHoveredProject(null)}
-            >
-              {/* Animated background gradient */}
-              <div className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}></div>
-              
-              {/* Floating particles on hover */}
-              {hoveredProject === index && (
-                <>
-                  <div className="absolute top-4 right-4 w-2 h-2 bg-white rounded-full animate-ping"></div>
-                  <div className="absolute top-8 right-12 w-1 h-1 bg-gray-400 rounded-full animate-ping animation-delay-200"></div>
-                  <div className="absolute top-12 right-6 w-1.5 h-1.5 bg-white rounded-full animate-ping animation-delay-400"></div>
-                </>
-              )}
+        {/* Projects Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {projects.map((project, index) => {
+            const ProjectIcon = project.icon;
+            const currentTab = activeTabs[index] || 'readme';
 
-              <div className="relative z-10">
-                <div className="flex items-center justify-between mb-6">
-                  <div className={`p-4 rounded-xl bg-gradient-to-r ${project.color} bg-opacity-20 group-hover:bg-opacity-30 transition-all duration-300 group-hover:scale-110 group-hover:rotate-3`}>
-                    <project.icon className="w-8 h-8 text-white" />
-                  </div>
-                  <div className="flex space-x-3">
-                    {/* <a
-                      href={project.demoUrl}
-                      className="p-2 bg-gray-700/50 rounded-lg hover:bg-gray-600/50 transition-all duration-300 hover:scale-110 group-hover:rotate-12"
-                    >
-                      <Play className="w-5 h-5 text-white" />
-                    </a> */}
-                    <a
-                      href={project.githubUrl}
-                      className="p-2 bg-gray-700/50 rounded-lg hover:bg-gray-600/50 transition-all duration-300 hover:scale-110 group-hover:-rotate-12"
-                    >
-                      <Github className="w-5 h-5 text-white" />
-                    </a>
-                  </div>
-                </div>
-
-                <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-gray-100 transition-colors duration-300">
-                  {project.title}
-                </h3>
-
-                <p className="text-gray-400 mb-6 leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
-                  {project.description}
-                </p>
-
-                {/* Features */}
-                <div className="mb-6">
-                  <h4 className="text-sm font-semibold text-gray-300 mb-3">Key Features:</h4>
-                  <div className="grid grid-cols-2 gap-2">
-                    {project.features.map((feature, featureIndex) => (
-                      <div
-                        key={featureIndex}
-                        className="flex items-center space-x-2 text-sm text-gray-400 group-hover:text-gray-300 transition-colors duration-300"
+            return (
+              <div
+                key={index}
+                className="editor-window flex flex-col hover:border-neutral-700 transition-colors duration-300 min-h-[440px]"
+              >
+                
+                {/* Editor Header Bar */}
+                <div className="editor-header flex justify-between items-center select-none">
+                  {/* Left Mock Window Dots */}
+                  <div className="flex items-center">
+                    <div className="editor-dot bg-neutral-800"></div>
+                    <div className="editor-dot bg-neutral-800"></div>
+                    <div className="editor-dot bg-neutral-800"></div>
+                    
+                    {/* Tabs */}
+                    <div className="flex ml-4 h-9">
+                      <button
+                        onClick={() => toggleTab(index, 'readme')}
+                        className={`editor-tab text-[10px] ${currentTab === 'readme' ? 'active font-bold border-b border-white text-white' : 'text-neutral-500'}`}
                       >
-                        <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></div>
-                        <span>{feature}</span>
-                      </div>
-                    ))}
+                        readme.md
+                      </button>
+                      <button
+                        onClick={() => toggleTab(index, 'code')}
+                        className={`editor-tab text-[10px] ${currentTab === 'code' ? 'active font-bold border-b border-white text-white' : 'text-neutral-500'}`}
+                      >
+                        {project.fileName}
+                      </button>
+                    </div>
                   </div>
+
+                  {/* Right Action Link */}
+                  <a
+                    href={project.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-1 rounded bg-neutral-900 border border-neutral-850 hover:bg-neutral-800 text-neutral-400 hover:text-white transition-colors"
+                  >
+                    <Github className="w-3.5 h-3.5" />
+                  </a>
                 </div>
 
-                {/* Tech Stack */}
-                <div className="flex flex-wrap gap-2">
-                  {project.tech.map((tech, techIndex) => (
-                    <span
-                      key={techIndex}
-                      className="px-3 py-1 bg-gray-700/50 text-gray-300 text-sm rounded-full border border-gray-600/50 group-hover:border-gray-500/50 group-hover:bg-gray-600/50 transition-all duration-300 hover:scale-110"
-                      style={{ animationDelay: `${techIndex * 50}ms` }}
-                    >
-                      {tech}
-                    </span>
-                  ))}
+                {/* Editor Body */}
+                <div className="p-6 flex-1 flex flex-col justify-between bg-neutral-950 font-mono text-xs text-neutral-400">
+                  <AnimatePresence mode="wait">
+                    {currentTab === 'readme' ? (
+                      <motion.div
+                        key="readme"
+                        initial={{ opacity: 0, y: 5 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -5 }}
+                        transition={{ duration: 0.15 }}
+                        className="space-y-4 flex-1 flex flex-col justify-between"
+                      >
+                        <div>
+                          {/* Heading */}
+                          <div className="flex items-center space-x-2.5 mb-2.5">
+                            <div className="w-7 h-7 rounded bg-neutral-900 border border-neutral-850 flex items-center justify-center">
+                              <ProjectIcon className="w-4 h-4 text-white" />
+                            </div>
+                            <h3 className="text-base font-bold text-white tracking-wide">
+                              {project.title}
+                            </h3>
+                          </div>
+
+                          {/* Description */}
+                          <p className="text-neutral-400 leading-relaxed text-[11px] mb-4">
+                            {project.description}
+                          </p>
+
+                          {/* Key Features */}
+                          <div className="space-y-1.5 mb-4">
+                            <span className="text-neutral-600 block text-[9px] uppercase tracking-widest">// key_features:</span>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1 text-[11px]">
+                              {project.features.map((feat, fIdx) => (
+                                <div key={fIdx} className="flex items-center space-x-1.5 text-neutral-300">
+                                  <Check className="w-3 h-3 text-neutral-600 flex-shrink-0" />
+                                  <span className="truncate">{feat}</span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Tech pills */}
+                        <div className="flex flex-wrap gap-1.5 pt-4 border-t border-neutral-900/60">
+                          {project.tech.map((t, tIdx) => (
+                            <span
+                              key={tIdx}
+                              className="px-2 py-0.5 rounded bg-neutral-900 border border-neutral-850 text-neutral-400 text-[10px]"
+                            >
+                              {t}
+                            </span>
+                          ))}
+                        </div>
+                      </motion.div>
+                    ) : (
+                      <motion.div
+                        key="code"
+                        initial={{ opacity: 0, y: 5 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -5 }}
+                        transition={{ duration: 0.15 }}
+                        className="flex-1 flex flex-col"
+                      >
+                        <span className="text-neutral-700 block mb-2 select-none">// {project.fileName} - Core Implementation snippet</span>
+                        <div className="bg-neutral-900/60 p-4 rounded border border-neutral-900 overflow-x-auto font-mono text-[10px] text-neutral-300 leading-normal flex-1">
+                          <pre className="whitespace-pre">
+                            <code>{project.codeSnippet}</code>
+                          </pre>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
+
               </div>
-
-              {/* Animated border effect */}
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform -skew-x-12 -translate-x-full group-hover:translate-x-full animation-delay-200"></div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
-        {/* Call to Action */}
-        <div className="text-center mt-16 animate-fade-in-up">
-          <p className="text-gray-400 mb-6">Want to see more of my work?</p>
+        {/* View All Projects Action */}
+        <div className="text-center mt-16">
+          <p className="font-mono text-xs text-neutral-500 mb-4">// Browse all public repositories and commits</p>
           <a
             href="https://github.com/Anand-8876"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center space-x-2 px-8 py-4 bg-gradient-to-r from-white to-gray-300 text-black font-semibold rounded-lg hover:from-gray-100 hover:to-white transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl hover:rotate-1"
+            className="inline-flex items-center space-x-2 px-6 py-3.5 bg-white text-black font-semibold rounded hover:bg-neutral-200 transition-colors"
           >
-            <Github className="w-5 h-5" />
-            <span>View All Projects</span>
-            <ExternalLink className="w-4 h-4" />
+            <Github className="w-4 h-4" />
+            <span className="font-mono text-xs uppercase tracking-wider">github.com/Anand-8876</span>
           </a>
         </div>
+
       </div>
     </section>
   );

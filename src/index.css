@@ -1,157 +1,148 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
 html {
   scroll-behavior: smooth;
+  background-color: #000000;
+}
+
+body {
+  background-color: #000000;
+  color: #f5f5f5;
+  overflow-x: hidden;
+}
+
+/* Monospace font utility override */
+.font-mono {
+  font-family: 'JetBrains Mono', source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace !important;
 }
 
 @layer utilities {
+  .animation-delay-100 {
+    animation-delay: 100ms;
+  }
   .animation-delay-200 {
     animation-delay: 200ms;
   }
-  
+  .animation-delay-300 {
+    animation-delay: 300ms;
+  }
   .animation-delay-400 {
     animation-delay: 400ms;
   }
-
-  @keyframes wiggle {
-    0%, 100% {
-      transform: rotate(-3deg);
-    }
-    50% {
-      transform: rotate(3deg);
-    }
+  .animation-delay-500 {
+    animation-delay: 500ms;
   }
 
-  .animate-wiggle {
-    animation: wiggle 0.3s ease-in-out infinite;
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
   }
 
-  @keyframes fade-in {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
   }
 
-  @keyframes fade-in-up {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  @keyframes pulse-soft {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
   }
 
-  @keyframes slide-in {
-    from {
-      opacity: 0;
-      transform: translateX(-30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
-  @keyframes slide-in-up {
-    from {
-      opacity: 0;
-      transform: translateY(50px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes slide-in-right {
-    from {
-      opacity: 0;
-      transform: translateX(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
-  @keyframes slide-in-left {
-    from {
-      opacity: 0;
-      transform: translateX(-30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
-  @keyframes bounce-in {
-    0% {
-      opacity: 0;
-      transform: scale(0.3);
-    }
-    50% {
-      transform: scale(1.05);
-    }
-    70% {
-      transform: scale(0.9);
-    }
-    100% {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-
-  .animate-fade-in {
-    animation: fade-in 0.8s ease-out;
-  }
-
-  .animate-fade-in-up {
-    animation: fade-in-up 0.8s ease-out;
-  }
-
-  .animate-slide-in {
-    animation: slide-in 0.8s ease-out;
-  }
-
-  .animate-slide-in-up {
-    animation: slide-in-up 0.8s ease-out;
-  }
-
-  .animate-slide-in-right {
-    animation: slide-in-right 0.8s ease-out;
-  }
-
-  .animate-slide-in-left {
-    animation: slide-in-left 0.8s ease-out;
-  }
-
-  .animate-bounce-in {
-    animation: bounce-in 0.6s ease-out;
+  .animate-pulse-soft {
+    animation: pulse-soft 3s ease-in-out infinite;
   }
 }
 
 /* Custom scrollbar for webkit browsers */
 ::-webkit-scrollbar {
   width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #1f2937;
+  background: #000000;
+  border-left: 1px solid #171717;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #4b5563;
+  background: #262626;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #6b7280;
+  background: #404040;
+}
+
+/* Premium Dot Grid Pattern */
+.dot-grid {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Border draw animation for premium cards */
+.border-glow-hover {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.border-glow-hover:hover {
+  border-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
+}
+
+/* Code Editor Card Styles */
+.editor-window {
+  background: #0a0a0a;
+  border: 1px solid #1a1a1a;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+}
+
+.editor-header {
+  height: 36px;
+  background: #121212;
+  border-bottom: 1px solid #1a1a1a;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+}
+
+.editor-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 6px;
+}
+
+.editor-tab {
+  height: 100%;
+  padding: 0 16px;
+  border-right: 1px solid #1a1a1a;
+  display: flex;
+  align-items: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: #a3a3a3;
+  background: #0d0d0d;
+}
+
+.editor-tab.active {
+  background: #0a0a0a;
+  color: #f5f5f5;
+  border-bottom: 2px solid #ffffff;
+}
+
+/* Glassmorphism panel */
+.glass-panel {
+  background: rgba(10, 10, 10, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
